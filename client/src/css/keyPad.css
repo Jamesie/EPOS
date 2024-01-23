@@ -1,0 +1,75 @@
+html {
+  background-color: hsl(0, 0%, 11%);
+}
+
+.full {
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+.numpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.numpad-container {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.keypad-button {
+  width: 125px;
+  height: 125px;
+  margin: 5px;
+  font-size: 35px;
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 33%);
+  color: hsl(0, 0%, 89%);
+  outline: none;
+  border: none;
+}
+
+.keypad-button:hover {
+  background-color: chocolate;
+}
+
+h1 {
+  font-size: 50px;
+  color: hsl(0, 0%, 66%);
+}
+
+.green-colour:hover {
+  background-color: green;
+}
+
+.red-colour:hover {
+  background-color: rgb(255, 0, 0);
+}
+
+.equal-button {
+  height: 260px;
+}
+
+.centerDiv {
+  border: 1px solid hsl(0, 0%, 83%);
+  border-radius: 10px;
+  padding: 1rem;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
