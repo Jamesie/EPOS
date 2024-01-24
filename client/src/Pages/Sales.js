@@ -7,7 +7,7 @@ function Sales() {
   const [checkoutType, setCheckoutType] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [menuCategories, setMenuCategories] = useState([]);
+  const [menuData, setmenuData] = useState([]);
 
 
   useEffect( () => {
@@ -18,20 +18,29 @@ function Sales() {
     try {
       const response = await fetch('http://localhost:5000/menu');
       const data = await response.json();
-      setMenuCategories(data);
+      setmenuData(data);
     } catch (error) {
       console.error('Error fetching menu data:', error);
     }
   };
 
   const handleCheckout = async () => {
+
+    const receipt = [];
+    const newArray = {
+      Total: selectedItems.reduce((total, item) => total + item.price, 0).toFixed(2),
+      CheckoutType: checkoutType ? 'Eat In' : 'Take Away',
+      items: selectedItems
+    };
+    receipt.push(newArray);
+
     try {
       const response = await fetch('http://localhost:5000/api/submit-items', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ selectedItems }),
+        body: JSON.stringify({ receipt }),
       });
 
       if (response.ok) {
@@ -71,14 +80,14 @@ function Sales() {
     return selectedItems.reduce((total, item) => total + item.price, 0).toFixed(2);
   };
 
-  const menuItems = menuCategories[selectedCategory]?.items || [];
+  const menuItems = menuData[selectedCategory]?.items || [];
 
   return (
     <div className='sales-page-wrapper'>
       <div className='menu-wrapper'>
         <div className='please-look-good'>
           <div className='menu-category-container'>
-            {menuCategories.map((category, index) => (
+            {menuData.map((category, index) => (
               <div
                 key={index}
                 className={`menu-category ${selectedCategory === index && 'active'}`}
