@@ -19,8 +19,8 @@ function Sales() {
       const response = await fetch('http://localhost:5000/menu');
       const data = await response.json();
       setMenuCategories(data);
-    } catch(error) {
-      console.error('Error fetching menu data:', error)
+    } catch (error) {
+      console.error('Error fetching menu data:', error);
     }
   };
 
@@ -84,7 +84,7 @@ function Sales() {
                 className={`menu-category ${selectedCategory === index && 'active'}`}
                 onClick={() => handleCategoryClick(index)}
               >
-                {category.name}
+                {category.category}
               </div>
             ))}
           </div>
