@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 require('dotenv/config')
-const Menu = require('../models/schemas')
+const Menu = require('../models/menuSchema')
 
 router.get('/menu', async (req, res) => {
   try {

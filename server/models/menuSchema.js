@@ -10,17 +10,6 @@ const menuItemSchema = new Schema({
     },
   ],
 });
-
-const receiptSchema = new Schema({
-  total: {type: String, required: true},
-  checkoutType: {type: String, required: true},
-  orderDate: {type: Date, default:Date.now},
-  orderedItems: [
-    {
-      
-    }
-  ]
-})
   
 const Menu = mongoose.model('Menu', menuItemSchema);
   

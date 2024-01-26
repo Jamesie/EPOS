@@ -27,10 +27,11 @@ function Sales() {
   const handleCheckout = async () => {
 
     const receipt = [];
+
     const newArray = {
       Total: selectedItems.reduce((total, item) => total + item.price, 0).toFixed(2),
       CheckoutType: checkoutType ? 'Eat In' : 'Take Away',
-      items: selectedItems
+      items: selectedItems.map(item => item.name)
     };
     receipt.push(newArray);
 

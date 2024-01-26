@@ -20,10 +20,9 @@ function CashPage() {
             const response = await fetch('http://localhost:5000/api/submitted-items');
             const data = await response.json();
             setReceiptData(data);
-    
-            // Extracting Total from the nested structure and setting it to the change variable
-            const totalValue = data[0][0]?.Total || ''; // Using optional chaining (?.) to handle potential undefined values
-            setChange(totalValue);
+
+            const total = data.length > 0 ? data[0].total : null;
+            setChange(total);
         } catch (error) {
             console.error('Error fetching submitted items:', error);
         }
