@@ -1,13 +1,33 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/keyPad.css';
+import '../css/payType.css'
 import { useNavigate } from 'react-router-dom';
 
 
-function PinLock() {
+function CashPage() {
 
     const [pin, setPin] = useState('');
-    const correctPin = '00000';
+    const [change, setChange] = useState('');
+    const [receiptData, setReceiptData] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchSubmittedItems();
+    }, []);
+    
+    const fetchSubmittedItems = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/submitted-items');
+            const data = await response.json();
+            setReceiptData(data);
+    
+            // Extracting Total from the nested structure and setting it to the change variable
+            const totalValue = data[0][0]?.Total || ''; // Using optional chaining (?.) to handle potential undefined values
+            setChange(totalValue);
+        } catch (error) {
+            console.error('Error fetching submitted items:', error);
+        }
+    };
 
     const handleButtonClick = (n) => {
         if (pin.length < 5) {
@@ -20,21 +40,20 @@ function PinLock() {
     };
 
     const handleUnlock = () => {
-        if (pin === correctPin) {
-            navigate('/Sales');
-        }
-        else {
-          alert('Incorrect pin. Please try again.');
-          setPin('');
+        if (pin.length > 0) {
+            setChange((parseFloat(pin) - parseFloat(change)).toFixed(2));
         }
     };
 
     return(
         <div className='full'>
+            <div>
+                <h1>£{change}</h1>
+            </div>
             <div className='centerDiv'>
-                <h1>Enter PIN</h1>
+                <h1>Enter Cash Amount</h1>
                 <div className="numpad">
-                    <h1>#{pin}</h1>
+                        <h1>£{pin}</h1>
                     <div className="row">
                         <button className='keypad-button' onClick={() => handleButtonClick('7')}>7</button>
                         <button className='keypad-button' onClick={() => handleButtonClick('8')}>8</button>
@@ -62,4 +81,4 @@ function PinLock() {
     );
 }
 
-export default PinLock
+export default CashPage

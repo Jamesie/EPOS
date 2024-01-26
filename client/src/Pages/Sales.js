@@ -45,7 +45,7 @@ function Sales() {
 
       if (response.ok) {
         console.log('Items submitted successfully');
-        navigate('/')
+        navigate('/PayType')
       } else {
         console.error('Failed to submit items');
       }
